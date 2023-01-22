@@ -26458,122 +26458,22 @@ public class GT_MachineRecipeLoader implements Runnable {
                     GT_ModHandler.getModItem("gtneioreplugin", "blockDimensionDisplay_DD", 1L, 0),
                     300,
                     125829120);
-            GT_Values.RA.addAssemblerRecipe(
-                    new ItemStack[] {
-                        GT_OreDictUnificator.get(OrePrefixes.pipeQuadruple, Materials.Infinity, 1L),
-                        CustomItemList.Hull_UEV.get(1L),
-                        GT_Utility.getIntegratedCircuit(4)
-                    },
-                    Materials.Polybenzimidazole.getMolten(2304L),
-                    ItemList.Hatch_Input_Multi_2x2_UEV.get(1L),
-                    600,
-                    24);
-            GT_Values.RA.addAssemblerRecipe(
-                    new ItemStack[] {
-                        GT_OreDictUnificator.get(OrePrefixes.pipeQuadruple, Materials.TranscendentMetal, 1L),
-                        CustomItemList.Hull_UEV.get(1L),
-                        GT_Utility.getIntegratedCircuit(4)
-                    },
-                    Materials.Polybenzimidazole.getMolten(2304L),
-                    ItemList.Hatch_Input_Multi_2x2_UIV.get(1L),
-                    600,
-                    24);
         }
     }
-
     private static final void registerOpticalComponentRecipes() {
         // Optical Boule
         GT_Values.RA.addLaserEngraverRecipe(
-                new ItemStack[] {
-                    ItemList.Circuit_Silicon_Ingot5.get(1L), // Americium Boule
-                    GT_Utility.copyAmount(
-                            0L,
-                            GT_ModHandler.getModItem(
-                                    "bartworks", "gt.bwMetaGeneratedlens", 1L, 36)), // Magneto resonatic lens
-                    GT_Utility.copyAmount(
-                            0L,
-                            GT_ModHandler.getModItem("bartworks", "gt.bwMetaGeneratedlens", 1L, 23)), // Fayalite lens
-                    GT_Utility.copyAmount(0L, CustomItemList.MysteriousCrystalLens.get(1))
+                new ItemStack[]{
+                        ItemList.Circuit_Silicon_Ingot5.get(1L),
+                        GT_Utility.copyAmount(0L, GT_ModHandler.getModItem("bartworks", "gt.bwMetaGeneratedlens", 1L, 36)),
+                        GT_Utility.copyAmount(0L, GT_ModHandler.getModItem("bartworks", "gt.bwMetaGeneratedlens", 1L, 23)),
+                        GT_Utility.copyAmount(0L, CustomItemList.MysteriousCrystalLens.get(1))
                 },
-                new FluidStack[] {Materials.UUMatter.getFluid(16000L)},
-                new ItemStack[] {ItemList.Circuit_Silicon_Ingot6.get(1L)},
-                new FluidStack[] {GT_Values.NF},
+                new FluidStack[]{Materials.UUMatter.getFluid(16000L)},
+                new ItemStack[]{ItemList.Circuit_Silicon_Ingot6.get(1L)},
+                new FluidStack[]{GT_Values.NF},
                 30 * 20,
                 7_864_320,
                 true);
-
-        // Photonically Prepared Wafer
-        int wafer_duration_ticks = 50 * 20;
-        int wafer_eu_per_tick = 7_864_320;
-        FluidStack[] purified_water = {
-            Materials.Grade1PurifiedWater.getFluid(1000L),
-            Materials.Grade2PurifiedWater.getFluid(1000L),
-            Materials.Grade3PurifiedWater.getFluid(1000L),
-            Materials.Grade4PurifiedWater.getFluid(1000L),
-            Materials.Grade5PurifiedWater.getFluid(1000L),
-            Materials.Grade6PurifiedWater.getFluid(1000L),
-            Materials.Grade7PurifiedWater.getFluid(1000L),
-            Materials.Grade8PurifiedWater.getFluid(1000L)
-        };
-        for (int i = 0; i < purified_water.length; i++) {
-            GT_Values.RA.addCutterRecipe(
-                    ItemList.Circuit_Silicon_Ingot6.get(1L), // Optical Boule
-                    purified_water[i],
-                    ItemList.Circuit_Silicon_Wafer6.get((i + 1) * 2L),
-                    GT_Values.NI,
-                    wafer_duration_ticks *= 0.95,
-                    wafer_eu_per_tick);
-        }
-
-        Fluid oganesson = FluidRegistry.getFluid("oganesson") != null
-                ? FluidRegistry.getFluid("oganesson")
-                : FluidRegistry.getFluid("radon");
-
-        // Photonically Enhanced Wafer
-        GT_Values.RA.addLaserEngraverRecipe(
-                new ItemStack[] {
-                    ItemList.Circuit_Silicon_Wafer6.get(1L), // Photonically Prepared Wafer
-                    Materials.Glowstone.getNanite(1),
-                    GT_Utility.copyAmount(
-                            0L,
-                            GT_ModHandler.getModItem("supersolarpanel", "solarsplitter", 1L, 0)) // Solar Light Splitter
-                },
-                new FluidStack[] {Materials.Tin.getPlasma(1000L), new FluidStack(oganesson, 4000)},
-                new ItemStack[] {ItemList.Circuit_Silicon_Wafer7.get(1L)},
-                new FluidStack[] {Materials.Tin.getMolten(1000L)},
-                10 * 20,
-                7_864_320,
-                true);
-
-        Fluid solderUEV = FluidRegistry.getFluid("molten.mutatedlivingsolder") != null
-                ? FluidRegistry.getFluid("molten.mutatedlivingsolder")
-                : FluidRegistry.getFluid("molten.solderingalloy");
-
-        // Optically Perfected CPU
-        GT_Values.RA.addCircuitAssemblerRecipe(
-                new ItemStack[] {
-                    ItemList.Circuit_Chip_Optical.get(1L),
-                    ItemList.Optical_Cpu_Containment_Housing.get(1L),
-                    GT_OreDictUnificator.get(OrePrefixes.screw, Materials.Infinity, 16L)
-                },
-                new FluidStack(solderUEV, 288),
-                ItemList.Optically_Perfected_CPU.get(1L),
-                10 * 20,
-                7_864_320,
-                true);
-
-        // Optical CPU Containment Housing
-        GT_Values.RA.addFormingPressRecipe(
-                new ItemStack[] {
-                    ItemList.Circuit_Board_Optical.get(1L),
-                    GT_ModHandler.getModItem("miscutils", "itemFoilBotmium", 1L),
-                    GT_OreDictUnificator.get(OrePrefixes.foil, Materials.NickelZincFerrite, 1L),
-                    GT_OreDictUnificator.get(OrePrefixes.foil, Materials.NaquadahAlloy, 1L),
-                    GT_OreDictUnificator.get(OrePrefixes.foil, Materials.VibrantAlloy, 1L),
-                    GT_OreDictUnificator.get(OrePrefixes.bolt, Materials.Bedrockium, 8L)
-                },
-                new ItemStack[] {ItemList.Optical_Cpu_Containment_Housing.get(1L)},
-                10 * 10,
-                7_864_320);
     }
 }
