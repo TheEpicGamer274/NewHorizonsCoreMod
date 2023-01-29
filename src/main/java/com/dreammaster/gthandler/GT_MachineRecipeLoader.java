@@ -1,27 +1,17 @@
 package com.dreammaster.gthandler;
 
-import static com.dreammaster.bartworksHandler.BartWorksMaterials.getBartWorksMaterialByIGNName;
-import static com.dreammaster.gthandler.GT_CoreModSupport.Xenoxene;
-import static gregtech.api.GregTech_API.mGTPlusPlus;
-import static gregtech.api.enums.GT_Values.*;
-
+import com.github.bartimaeusnek.bartworks.system.material.WerkstoffLoader;
 import cpw.mods.fml.common.Loader;
 import forestry.api.recipes.IFermenterRecipe;
 import gregtech.api.enums.*;
 import gregtech.api.objects.GT_ItemStack;
-import gregtech.api.util.GT_ModHandler;
-import gregtech.api.util.GT_OreDictUnificator;
-import gregtech.api.util.GT_Recipe;
-import gregtech.api.util.GT_RecipeRegistrator;
-import gregtech.api.util.GT_Utility;
+import gregtech.api.util.*;
 import gregtech.common.items.GT_MetaGenerated_Tool_01;
 import gregtech.common.tileentities.machines.basic.GT_MetaTileEntity_Disassembler;
 import gtPlusPlus.core.material.ALLOY;
 import gtPlusPlus.core.material.ELEMENT;
 import gtPlusPlus.core.recipe.common.CI;
 import ic2.core.Ic2Items;
-import java.lang.reflect.Field;
-import java.util.List;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -31,6 +21,14 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
+
+import java.lang.reflect.Field;
+import java.util.List;
+
+import static com.dreammaster.bartworksHandler.BartWorksMaterials.getBartWorksMaterialByIGNName;
+import static com.dreammaster.gthandler.GT_CoreModSupport.Xenoxene;
+import static gregtech.api.GregTech_API.mGTPlusPlus;
+import static gregtech.api.enums.GT_Values.*;
 
 public class GT_MachineRecipeLoader implements Runnable {
     @Override
@@ -26558,8 +26556,8 @@ public class GT_MachineRecipeLoader implements Runnable {
                 },
                 new FluidStack(solderUEV, 288),
                 ItemList.Optically_Perfected_CPU.get(1L),
-                20 * 20,
-                1_966_080,
+                10 * 20,
+                7_864_320,
                 true);
 
         // Optical CPU Containment Housing
@@ -26575,5 +26573,74 @@ public class GT_MachineRecipeLoader implements Runnable {
                 new ItemStack[] {ItemList.Optical_Cpu_Containment_Housing.get(1L)},
                 10 * 10,
                 7_864_320);
+
+        // Water Line
+            if (Loader.isModLoaded("bartworks")) {
+
+                GT_Values.RA.addSifterRecipe(
+                        new ItemStack[]{NI},
+                        new FluidStack[]{Materials.Water.getFluid(1000L)},
+                        new ItemStack[]{NI},
+                        new FluidStack[]{Materials.Grade1PurifiedWater.getFluid(1000L)},
+                        500 * 10,
+                        32720,
+                        true);
+            GT_Recipe.GT_Recipe_Map.sFluidHeaterRecipes.addRecipe(
+                    true,
+                    new ItemStack[]{NI},
+                    null,
+                    null,
+                    new FluidStack[]{Materials.Grade1PurifiedWater.getFluid(1000L)},
+                    new FluidStack[]{Materials.Grade2PurifiedWater.getFluid(1000L)},
+                    5000,
+                    65440,
+                    0);
+            GT_Values.RA.addDistillationTowerRecipe(
+                    Materials.Grade2PurifiedWater.getFluid(1000L),
+                    new FluidStack[]{
+                            Materials.Grade3PurifiedWater.getFluid(1000L),
+                    },
+                    null,
+                    500 * 10,
+                    138880);
+            GT_Values.RA.addLaserEngraverRecipe(
+                    new ItemStack[]{(WerkstoffLoader.Hedenbergit.get(OrePrefixes.lens, 0))}, // Hedenbergite Lens
+                    new FluidStack[]{Materials.Grade3PurifiedWater.getFluid(1000L)},
+                    new ItemStack[]{NI},
+                    new FluidStack[]{Materials.Grade4PurifiedWater.getFluid(1000L)},
+                    500 * 10,
+                    261760,
+                    true);
+            GT_Values.RA.addMultiblockChemicalRecipe(
+                    new ItemStack[]{
+                            GT_Utility.copyAmount(0, Materials.Zeolite.getDust(5)), GT_Utility.getIntegratedCircuit(1)
+                    },
+                    new FluidStack[]{Materials.Grade4PurifiedWater.getFluid(1000)},
+                    new FluidStack[]{
+                            Materials.Grade5PurifiedWater.getFluid(1000),
+                    },
+                    null,
+                    500 * 10,
+                    523520);
+            GT_Values.RA.addLaserEngraverRecipe(
+                    new ItemStack[]{WerkstoffLoader.BArTiMaEuSNeK.get(OrePrefixes.lens, 0)}, // Bart Lens
+                    new FluidStack[]{Materials.Grade5PurifiedWater.getFluid(1000L)},
+                    new ItemStack[]{NI},
+                    new FluidStack[]{Materials.Grade6PurifiedWater.getFluid(1000L)},
+                    500 * 10,
+                    1047040,
+                    true);
+            GT_Values.RA.addDistillationTowerRecipe(
+                    Materials.Grade6PurifiedWater.getFluid(1000L),
+                    new FluidStack[]{
+                            Materials.Grade7PurifiedWater.getFluid(1000L),
+                    },
+                    null,
+                    500 * 10,
+                    2094080);
+        }
+    }
+
+    {
     }
 }
